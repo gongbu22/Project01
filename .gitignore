@@ -1,3 +1,4 @@
+# backend
 backend/.env
 backend/venv/
 
@@ -5,3 +6,8 @@ backend/venv/
 __pycache__/
 *.pyc
 .env
+
+# frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
