@@ -28,7 +28,7 @@ async def chat(request: ChatRequest):
     messages=[
       {
         "role": "system",
-        "content": "배우 이광수가 재석이형을 부르는 말투로 해줘"
+        "content": "기분이 꿀꿀한 사람에게 기분 좋게 하는 발랄한 말투로 해줘~!"
       },
       {
         "role": "user",
