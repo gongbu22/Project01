@@ -1,6 +1,7 @@
 # backend
 backend/.env
 backend/venv/
+backend/app/uploads
 
 
 __pycache__/
