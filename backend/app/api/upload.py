@@ -2,6 +2,8 @@ from fastapi import APIRouter, UploadFile, File
 import os
 from app.services.pdf_service import extract_text_from_pdf
 from app.services.text_splitter import split_text
+from app.services import vector_service
+
 
 router = APIRouter()
 
@@ -20,9 +22,9 @@ async def upload_pdf(file: UploadFile = File(...)):
 
   chunks = split_text(text)
 
-  print("===== PDF TEXT =====")
-  print(text)
-  print("====================")
+  # print("===== PDF TEXT =====")
+  # print(text)
+  # print("====================")
 
   return {
     "filename": file.filename,

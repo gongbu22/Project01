@@ -2,11 +2,13 @@
 backend/.env
 backend/venv/
 backend/app/uploads
+backend/app/chromadb
 
 
 __pycache__/
 *.pyc
 .env
+
 
 # frontend
 frontend/node_modules/
