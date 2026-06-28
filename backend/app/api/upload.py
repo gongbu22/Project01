@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 import os
 from app.services.pdf_service import extract_text_from_pdf
 from app.services.text_splitter import split_text
-from app.services import vector_service
+from app.services.vector_service import save_chunk
 from app.services.embedding_service import create_embedding
 
 
@@ -23,20 +23,15 @@ async def upload_pdf(file: UploadFile = File(...)):
 
   chunks = split_text(text)
 
-  # print("===== PDF TEXT =====")
-  # print(text)
-  # print("====================")
+  # embedding 후 chromadb에 저장
+  for index, chunk in enumerate(chunks):
+    embedding = create_embedding(chunk)
 
-  # embedding
-  embedding = create_embedding(chunks[0])
+    save_chunk(
+      chunk=chunk,
+      embedding=embedding,
+      filename=file.filename,
+      chunk_index=index
+    )
 
-  print("벡터 길이 : ", len(embedding))
-  print("앞의 10개 :", embedding[:10])
-
-  return {
-    "filename": file.filename,
-    # "text_preview": text[:300],
-    "chunk_count": len(chunks),
-    # "chunks": chunks
-    "message": "PDF 업로드 및 텍스트 분할 완료 :)"
-  }
+  print("모든 Chunk 저장 완료!! :)")

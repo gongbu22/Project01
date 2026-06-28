@@ -1,7 +1,7 @@
 import chromadb
 
 # ChromaDB 연결
-client = chromadb.PersistentClient(path="app/chromadb")
+client = chromadb.PersistentClient(path="data/chromadb")
 
 
 def get_collection():
@@ -9,6 +9,31 @@ def get_collection():
 
   return client.get_or_create_collection(
     name="pdf_documents"
+  )
+
+# chunks 저장
+def save_chunk(
+    chunk: str,
+    embedding: list[float],
+    filename: str,
+    chunk_index: int,
+): 
+  collection = get_collection()
+
+  collection.add(
+    documents=[chunk],
+    embeddings=[embedding],
+    metadatas=[
+      {
+        "filename": filename,
+        "chunk": chunk_index,
+      }
+    ],
+
+    ids=[
+      f"{filename}_{chunk_index}"
+    ]
+
   )
 
 # def test_insert():

@@ -3,6 +3,7 @@ backend/.env
 backend/venv/
 backend/app/uploads
 backend/app/chromadb
+backend/data/chromadb
 
 
 __pycache__/
