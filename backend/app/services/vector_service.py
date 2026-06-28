@@ -1,11 +1,36 @@
 import chromadb
 
-# ChromaDB가 저장될 폴더
+# ChromaDB 연결
 client = chromadb.PersistentClient(path="app/chromadb")
 
-# Collection 생성 ( table 같은거 )
-collection = client.get_or_create_collection(
-  name="pdf_documents"
-)
 
-print("Collection 생성 완료 :)")
+def get_collection():
+  # pdf_documents Collection을 반환
+
+  return client.get_or_create_collection(
+    name="pdf_documents"
+  )
+
+def test_insert():
+  collection = get_collection()
+
+  collection.add(
+    documents=[
+      "FastAPI는 Python 웹 프레임워크입니다."
+    ],
+    embeddings=[
+      [0.1, 0.2, 0.3]
+    ],
+    metadatas=[
+      {
+        "filename": "test.pdf",
+        "page": 1
+      }
+    ],
+    ids=[
+      "test1"
+    ]
+  )
+
+
+print("저장 완료 :)")
