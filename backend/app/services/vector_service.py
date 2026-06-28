@@ -1,3 +1,6 @@
+from importlib import metadata
+from xml.etree.ElementInclude import include
+
 import chromadb
 
 # ChromaDB 연결
@@ -33,8 +36,21 @@ def save_chunk(
     ids=[
       f"{filename}_{chunk_index}"
     ]
-
   )
+
+  # 결과 확인
+  result = collection.get(
+    include=["documents", "metadatas"]
+  )
+  
+  print("=" * 50)
+
+  for doc, meta in zip(result["documents"], result["metadatas"]):
+    print(meta)
+    print(doc[:100])
+    print("-"*50)
+
+  
 
 # def test_insert():
 #   collection = get_collection()
