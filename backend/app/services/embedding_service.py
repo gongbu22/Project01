@@ -15,12 +15,24 @@ client = OpenAI(
   api_key=os.getenv("OPENAI_API_KEY")
 )
 
-def create_embedding(text: str) -> list[float]:
+def create_embedding(texts: list[str]) -> list[float]:
   # text를 OpenAI Embedding 으로 변환
+  # 여러 개의 text를 한번에 Embedding 하기
 
   response = client.embeddings.create(
     model="text-embedding-3-small",
-    input=text
+    input=texts
   )
 
-  return response.data[0].embedding
+  # embeddings = []
+
+  # for item in response.data:
+  #   embeddings.append(item.embedding)
+
+  # return embeddings
+
+# 리스트 컴프리헨션 (List Comprehension)
+  return [
+    item.embedding
+    for item in response.data
+  ]

@@ -24,8 +24,12 @@ async def upload_pdf(file: UploadFile = File(...)):
   chunks = split_text(text)
 
   # embedding 후 chromadb에 저장
-  for index, chunk in enumerate(chunks):
-    embedding = create_embedding(chunk)
+
+  embeddings = create_embedding(chunks)
+
+  # 번호가 필요해서 enumerate 사용
+  # zip(chunks, embeddings) ===>  ex) (testText, [0.1,0.2])
+  for index, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
 
     save_chunk(
       chunk=chunk,
