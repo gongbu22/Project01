@@ -3,6 +3,7 @@ import os
 from app.services.pdf_service import extract_text_from_pdf
 from app.services.text_splitter import split_text
 from app.services import vector_service
+from app.services.embedding_service import create_embedding
 
 
 router = APIRouter()
@@ -25,6 +26,12 @@ async def upload_pdf(file: UploadFile = File(...)):
   # print("===== PDF TEXT =====")
   # print(text)
   # print("====================")
+
+  # embedding
+  embedding = create_embedding(chunks[0])
+
+  print("벡터 길이 : ", len(embedding))
+  print("앞의 10개 :", embedding[:10])
 
   return {
     "filename": file.filename,
