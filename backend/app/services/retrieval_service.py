@@ -1,12 +1,12 @@
 from app.services.embedding_service import create_embedding
-from app.services.vector_service import get_collection
+from app.services.vector_service import get_pdf_collection
 
 # 질문 -> 임베딩 -> 검색
 
 def retrieve_chunks(question: str, n_results: int = 3):
 
   # Collection 가져오기
-  collection = get_collection()
+  collection = get_pdf_collection()
 
   # 질문을 임베딩
   question_embeddings = create_embedding([question])

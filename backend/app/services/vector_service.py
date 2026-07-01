@@ -6,13 +6,16 @@ import chromadb
 # ChromaDB 연결
 client = chromadb.PersistentClient(path="data/chromadb")
 
-
-def get_collection():
-  # pdf_documents Collection을 반환
-
+def get_pdf_collection():
   return client.get_or_create_collection(
     name="pdf_documents"
   )
+
+def get_chat_collection():
+  return client.get_or_create_collection(
+    name="chat_memory"
+  )
+
 
 # chunks 저장
 def save_chunk(
@@ -21,7 +24,7 @@ def save_chunk(
     filename: str,
     chunk_index: int,
 ): 
-  collection = get_collection()
+  collection = get_pdf_collection()
 
   collection.add(
     documents=[chunk],
